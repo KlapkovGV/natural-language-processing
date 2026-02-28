@@ -3,7 +3,7 @@
 Natural Language Processing is referred to as NLP in English literature. It is a subcategory of Artificial Intelligence.
 
 In the world of computing, there are two distinct types of languages:
-1. Machine Learning
+1. Programming Languages
 2. Natural Languages
 
 Programming languages are Context-Free (they have strict rules and no ambiguity), whereas Natural Languages are Context-Dependent and highly ambiguous (slang, sarcasm, metaphors), which is why NLP is so difficult for computers.
@@ -18,7 +18,7 @@ The aim of NLP is to create systems capable of deriving meaning from text and pe
 
 ## The NLP Pipeline
 
-NLP processing is not a sigle step; it is a hierarchical sequence of analyses that allow a machine to understand human language. Because languages vary significantly, the system follows these levels:
+NLP processing is not a single step; it is a hierarchical sequence of analyses that allow a machine to understand human language. Because languages vary significantly, the system follows these levels:
 1. Morphological and Lexical Analysis
 
 The system identifies individual words and analyzes their internal structure. It breaks down words into **roots and affixes**.
@@ -38,7 +38,7 @@ Discourse analysis examines how the meaning of a sentence depends on the sentenc
 
 ## Text Normalization
 
-In the preprocessing stage of any NLP pipeline, the primary goal is to reduce the vocabulary size and group together different forms of the same word. This process is known as **Text Normalization**. Without this step, a computer would treat "walk", "walking", and "walked" as three entirely different concepts, thich is inefficient for analysis.
+In the preprocessing stage of any NLP pipeline, the primary goal is to reduce the vocabulary size and group together different forms of the same word. This process is known as **Text Normalization**. Without this step, a computer would treat "walk", "walking", and "walked" as three entirely different concepts, which is inefficient for analysis.
 
 1. The Heuristic Approach: Stemming
 
@@ -64,11 +64,11 @@ Lemmatization understands the relationship between words. In English, Lemmatizat
 | **Better** | `better` | **good** | Lemma connects the comparative adjective to its base form. |
 | **Feet** | `feet` | **foot** | Lemma understands irregular plurals. |
 
-Part-of-speach awareness:
+Part-of-speech awareness:
 - the word: Saw;
 - stemming: returns saw;
 - lemmatization:
-  - if used as: He saw a bied, the lemma is see;
+  - if used as: He saw a bird, the lemma is see;
   - if used as: He used a saw, the lemma is saw.
 
 3. Roots vs. Stems
@@ -79,7 +79,7 @@ While people often use these terms interchangeably, they are technically differe
 
 Before normalization can occur, the text must be broken down into individual units. This process is called Tokenization. It is the act of splitting a sentence into smaller, meaningful units called tokens. Depending on the task, tokens can be individual words, numbers, punctuation marks, or even multi-word phrases. 
 
-The way text is split depends on the tokenizer used. For example, some tokenizer trat "don't" as one token, while others split it into do and n't. The Natural Language Toolkit (NLTK) provides a standard function for this:
+The way text is split depends on the tokenizer used. For example, some tokenizer treat "don't" as one token, while others split it into do and n't. The Natural Language Toolkit (NLTK) provides a standard function for this:
 
 ```python
 import nltk
@@ -157,7 +157,7 @@ Note: it is important to note that this modular architecture was the standard fo
 
 The Parser is the core component that analyzes the syntax (word order and grammar) of a sentence. It converts a flat string of words into a hierarchical Parse Tree.
 
-Most parser are based on Noam Chomsky's theories. He proposed that language is built from recursive phrase structures. In English linguistics, we break a sentence down into two primary branches:
+Most parsers are based on Noam Chomsky's theories. He proposed that language is built from recursive phrase structures. In English linguistics, we break a sentence down into two primary branches:
 
 1. Noun Phrase (NP): the subject or the doer
 2. Verb Phrase (VP): the action and its objects
@@ -171,7 +171,7 @@ Key abbreviation used in NLP parsing:
 * N: noun
 * V: verb
 
-Let;s look at the English sentence: "The chef cooked a delicious meal". "The chef" is NP (subject). "cooked a delicious meal" is VP (predicate). 
+Let's look at the English sentence: "The chef cooked a delicious meal". "The chef" is NP (subject). "cooked a delicious meal" is VP (predicate). 
 
 ```mermaid
 graph TD
@@ -200,7 +200,7 @@ graph TD
 
 ### The role of the Lexicon
 
-The Lexicon is a structured database containing all the words, roots, and meanings that the NLP program is designed to recogniize. It acts as the "vocabulary" of the system.
+The Lexicon is a structured database containing all the words, roots, and meanings that the NLP program is designed to recognize. It acts as the "vocabulary" of the system.
 
 The Parser cannot function alone; it must constantly consult the Lexicon to perform syntactic and morphological analysis. Without a Lexicon, a computer sees text as just random characters.
 
@@ -208,19 +208,50 @@ Four primary Lexical operations
 
 1. Tokenization
 
-The system identifies individual units (tokens) from the input string to mach them against the entries in the Lexicon.
+The system identifies individual units (tokens) from the input string to match them against the entries in the Lexicon.
 
 2. Morphological Analysis
 
-The system analyzes the structure of the word to find its root or stem. It strips awat suffixes to determine if the base word exists in the Lexicon.
+The system analyzes the structure of the word to find its root or stem. It strips away suffixes to determine if the base word exists in the Lexicon.
 
 3. Lexicon Lookup
 
-The system searches the database for the identified wprd or root to retrieve its grammatical properties.
+The system searches the database for the identified word or root to retrieve its grammatical properties.
 
 4. Error Handling / Transformation
 
 If a word is not found in the Lexicon, the system must handle the error. This can involve spell-checking, identifying the word as a proper noun, or using Out-of-Vocabulary protocols to guess the meaning based on context.
 
 Note: a Lexicon contains more than definitions; it contains linguistic features.
+
+## Challenges Encountered in NLP
+
+Uncertainty-Ambiguity Situation
+- Lexical Level: There is a language family in the family of languages that is agglutinative. That is, a word can have many meanings by taking more than one suffix. For this reason, it is difficult to find the meaning of these words.
+- Syntactic Level: There are sentences created by changing the places of words within the sentence. The meaning of these words can change depending on where they are in the sentence. The emphasis of the word can change. This situation needs to be understood by the computer.
+
+Interpretation of partial info is the case of finding out which word a pronoun in a sentence refers to during a translation or interpretation. For example, the case of pronouns like "he, she, it" in English.
+
+The computer must understand which field or topic a sentence entered into it refers to. For example, when the sentence "In Turkey, in the Aegean region, mountains are perpendicular to the sea" is entered, the computer should understand that this is geographical information and assume that the words within it could be geographical terms. A person can express many things to another person with a single sentence, or explain everything with a single word. In this case, how the computer understands this sentence can be an important issue; or there may be many words that express one single word, and finding the most accurate equivalent is also a major challenge here.
+
+## Basic Elements of NLP
+
+Since the goal in NLP is to enable communication with the computer in natural language, the computer needs to learn the rules of natural language. For this, the computer needs a general dictionary and various algorithms to utilize this dictionary. In addition to general knowledge about language, the computer also needs a knowledge base specific to the field or task that must be perceived independently of the general structure of the language. There are generally five basic elements in a natural language processing system. These are: parser, lexicon, understander, knowledge base, and generator.
+
+## NLP Techniques
+
+NLP applies four techniques to help computers understand text:
+
+1. Lexical Analysis
+2. Syntactic Analysis
+3. Disclosure Integration
+4. Pragmatic Analysis
+
+Syntactic analysis or parsing: analyzes text by utilizing basic grammar rules to identify sentence structure, how words are arranged, and their relationships with each other. Tasks: tokenization, part-of-speech tagging, lemmatization and stemming.
+
+Semantic analysis focuses on finding the meaning of the text. First, it examines the meaning of each word. Then, it looks at the combination of words and what they mean within context. The main sub-tasks of semantic analysis are word sense disambiguation and relationship extraction.
+
+Discourse Integration is the stage of integrating meanings between sentences with each other.
+
+Pragmatic Analysis involves deriving linguistic aspects of the created synthesis that require real-world knowledge.
 
